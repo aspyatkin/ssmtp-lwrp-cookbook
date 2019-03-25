@@ -1,0 +1,12 @@
+root=<%= @sender_email %>
+mailhub=<%= @smtp_host %>:<%= @smtp_port %>
+UseTLS=<%= @smtp_enable_ssl ? 'Yes' : 'No' %>
+UseSTARTTLS=<%= @smtp_enable_starttls ? 'Yes' : 'No' %>
+AuthUser=<%= @smtp_username %>
+AuthPass=<%= @smtp_password %>
+FromLineOverride=<%= @from_line_override ? 'Yes' : 'No' %>
+<% if ['rhel', 'fedora', 'amazon'].include?(node['platform_family']) %>
+TLS_CA_File=/etc/pki/tls/certs/ca-bundle.crt
+<% elsif ['debian'].include?(node['platform_family']) %>
+TLS_CA_FILE=/etc/ssl/certs/ca-certificates.crt
+<% end %>
